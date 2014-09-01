@@ -1,0 +1,15 @@
+{
+  "name": "nxt-api",
+  "version": "1.2.7",
+  "keywords": ["nxt"],
+  "dependencies": {
+    "request": "2.x.x"
+  },
+  "engines": {
+    "node": "10.x.x"
+  },
+  "devDependencies": {
+    "mocha": "1.x.x",
+    "supertest": "0.x.x"
+  }
+}
