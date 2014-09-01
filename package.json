@@ -1,7 +1,21 @@
 {
   "name": "nxt-api",
   "version": "1.2.7",
-  "keywords": ["nxt"],
+  "license": "MIT",
+  "author": {
+    "name": "Paulo Cesar",
+    "url" : "https://github.com"
+  },
+  "keywords": [
+    "nxt",
+    "crypto",
+    "api",
+    "request"
+  ],
+  "scripts": {
+    "test": "mocha",
+    "compile": "tsc --noImplicitAny --declaration typings/tsd.d.ts --module \"commonjs\" -t ES5 nxt-api.ts"
+  },
   "dependencies": {
     "request": "2.x.x"
   },
