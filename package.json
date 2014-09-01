@@ -17,7 +17,8 @@
     "compile": "tsc --noImplicitAny --declaration typings/tsd.d.ts --module \"commonjs\" -t ES5 nxt-api.ts"
   },
   "dependencies": {
-    "request": "2.x.x"
+    "request": "2.x.x",
+    "bluebird": "2.x.x"
   },
   "engines": {
     "node": "10.x.x"
