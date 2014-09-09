@@ -1,0 +1,5 @@
+--reporter list
+--ui bdd
+--check-leaks
+--require test/global.js
+test/test.js

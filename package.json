@@ -1,11 +1,16 @@
 {
   "name": "nxt-api",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "license": "MIT",
   "author": {
     "name": "Paulo Cesar",
     "url" : "https://github.com"
   },
+  "repository": {
+    "type":"git",
+    "url":"git://github.com/pocesar/node-nxt-api.git"
+  },
+  "main": "nxt-api",
   "keywords": [
     "nxt",
     "crypto",
@@ -13,11 +18,15 @@
     "request"
   ],
   "scripts": {
-    "test": "mocha",
-    "compile": "tsc --noImplicitAny --declaration typings/tsd.d.ts --module \"commonjs\" -t ES5 nxt-api.ts"
+    "test": "npm run compile && mocha",
+    "compile": "tsc --noImplicitAny --declaration typings/tsd.d.ts --module \"commonjs\" -t ES5 nxt-api.ts",
+    "browser": "browserify nxt-api.js --noparse request --noparse bluebird --ignore request --external bluebird > nxt.js",
+    "coverage": "npm run compile && node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "coveralls": "npm run compile && node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --report lcovonly && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "request": "2.x.x",
+    "browser-request": "0.x.x",
     "bluebird": "2.x.x"
   },
   "engines": {
@@ -25,6 +34,8 @@
   },
   "devDependencies": {
     "mocha": "1.x.x",
-    "supertest": "0.x.x"
+    "chai": "1.x.x",
+    "sinon": "1.x.x",
+    "browserify": "5.x.x"
   }
 }
