@@ -227,11 +227,11 @@ var Nxt;
         };
 
         API.prototype.getAllAssets = function (req, callback) {
-            return this._call('getAllAssets', {}, callback);
+            return this._call('getAllAssets', req, callback);
         };
 
         API.prototype.getAllOpenOrders = function (req, callback) {
-            return this._call('getAllOpenOrders', {}, callback);
+            return this._call('getAllOpenOrders', req, callback);
         };
 
         API.prototype.getAllTrades = function (req, callback) {

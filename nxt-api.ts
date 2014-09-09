@@ -29,9 +29,65 @@ module Nxt {
         secretPhrase: string;
     }
 
+
+    export interface IPeer {
+        peer: string;
+    }
+
+    export interface IActive {
+        active?: boolean;
+    }
+
+    export interface IPeers extends IActive {}
+
     export interface IMessage {
         message?: string;
         messageIsText?: boolean;
+    }
+
+    export interface IReadMessage extends
+        ITransaction,
+        ISecretPhrase
+    {
+
+    }
+
+    export interface ISignTransaction extends
+        IUnsignedTransactionBytes,
+        IUnsignedTransactionJSON,
+        ISecretPhrase
+    {
+
+    }
+
+    export interface ISendMessage extends
+        IRecipient,
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
+
+    }
+
+    export interface ISendMoney extends
+        IRecipient,
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
+        amountNQT: number;
     }
 
     export interface IDeadline {
@@ -46,6 +102,21 @@ module Nxt {
         account: string;
     }
 
+    export interface ILeaseBalance extends
+        IRecipient,
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
+        period: number;
+    }
+
     export interface ITimestamp {
         timestamp?: number;
     }
@@ -58,8 +129,82 @@ module Nxt {
         asset: number;
     }
 
+    export interface ITransferAsset extends
+        IRecipient,
+        IAsset,
+        IQuantityQNT,
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
+        comment?: string;
+    }
+
+    export interface IAssets {
+        assets: number;
+    }
+
+    export interface IAssetsByIssuer extends IAccount
+    {}
+
+    export interface IPlaceOrder extends
+        IAsset,
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IQuantityQNT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey,
+        IPriceNQT
+    {
+    }
+
+    export interface IPlaceBidOrder extends IPlaceOrder {}
+    export interface IPlaceAskOrder extends IPlaceOrder {}
+
+    export interface IIssueAsset extends
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IQuantityQNT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
+        name: string;
+        description: string;
+        decimals: number;
+    }
+
+    export interface ITrades extends
+        IAsset,
+        ILastIndex
+    {}
+
     export interface ILimit {
         limit?: number;
+    }
+
+    export interface IBlockHeight {
+        height?: number;
+    }
+
+    export interface IBlock extends IBlockHeight {
+        block: number;
+        includeTransactions?: boolean;
     }
 
     export interface IToken {
@@ -67,9 +212,37 @@ module Nxt {
         token: string;
     }
 
+    export interface IConfirmations {
+        numberOfConfirmations?: number;
+    }
+
+    export interface IType {
+        type?: number;
+    }
+
+    export interface ISubtype extends IType {
+        subtype?: number;
+    }
+
+    export interface IFirstIndex {
+        firstIndex?: number;
+    }
+
+    export interface ILastIndex extends IFirstIndex {
+        lastIndex?: number;
+    }
+
     export interface IMessageEncrypt extends IMessage {
         messageToEncrypt?: any;
         messageToEncryptIsText?: boolean;
+    }
+
+    export interface IDGSSeller {
+        seller: number;
+    }
+
+    export interface IDGSBuyer {
+        buyer: number;
     }
 
     export interface IMessageEncryptToSelf extends IMessageEncrypt {
@@ -104,8 +277,20 @@ module Nxt {
         errorCode: number;
     }
 
+    export interface IPriceNQT {
+        priceNQT: number;
+    }
+
+    export interface IQuantityQNT {
+        quantityQNT: number;
+    }
+
     export interface ITransactionBytes {
         transactionBytes?: any;
+    }
+
+    export interface IUnsignedTransactionJSON {
+        unsignedTransactionJSON?: string;
     }
 
     export interface ITransactionJSON {
@@ -114,6 +299,17 @@ module Nxt {
 
     export interface ITransaction {
         transaction: string;
+    }
+
+    export interface ITransactionHash {
+        fullHash?: string;
+    }
+
+    export interface ITransactionInfo extends
+        ITransaction,
+        ITransactionHash
+    {
+
     }
 
     export interface IVerify {
@@ -168,6 +364,39 @@ module Nxt {
 
     }
 
+    export interface IForging extends
+        ISecretPhrase
+    {
+
+    }
+
+    export interface IAccountInfo extends
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
+        name: string;
+        description: string;
+    }
+
+    export interface IAccountGuaranteed extends
+        IAccount,
+        IConfirmations
+    {
+
+    }
+
+    export interface IAliases extends
+        IAccount,
+        ITimestamp
+    {}
+
     export interface IAccountCurrentOrderIds extends
         IAsset,
         IAccount
@@ -184,6 +413,17 @@ module Nxt {
     {
 
     }
+
+    export interface IAccountTransactions extends
+        IAccount,
+        ITimestamp,
+        ISubtype,
+        ILastIndex,
+        IConfirmations
+    {}
+
+    export interface IAccountTransactionIds extends IAccountTransactions
+    {}
 
     // Transaction
 
@@ -203,20 +443,49 @@ module Nxt {
     // Alias
 
     export interface IBuyAlias extends
-        IEncryptedMessage,
-        IEncryptedMessageToSelf,
-        IMessageEncrypt,
-        IMessageEncryptToSelf,
+        IAlias,
+        ISecretPhrase,
         IPublicKey,
         IFeeNQT,
-        ISecretPhrase,
         IDeadline,
-        IAlias,
+        IBroadcast,
         IReferencedTransaction,
-        IRecipientPublicKey,
-        IBroadcast
+        IEncryptedMessageToSelf,
+        IMessageEncryptToSelf,
+        IRecipientPublicKey
     {
 
+    }
+
+    export interface ISetAlias extends
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IEncryptedMessageToSelf,
+        IMessageEncryptToSelf,
+        IRecipientPublicKey
+    {
+        aliasName: string;
+        aliasURI: string;
+    }
+
+    export interface ISellAlias extends
+        IAlias,
+        IRecipient,
+        IPriceNQT,
+        ISecretPhrase,
+        IPublicKey,
+        IFeeNQT,
+        IDeadline,
+        IReferencedTransaction,
+        IBroadcast,
+        IMessageEncryptToSelf,
+        IEncryptedMessageToSelf,
+        IRecipientPublicKey
+    {
     }
 
     export interface ICalculateHash extends
@@ -251,6 +520,19 @@ module Nxt {
 
     export interface ICancelBidOrder extends ICancelOrder
     {}
+
+    export interface IAskOrder extends IOrder {}
+    export interface IBidOrder extends IOrder {}
+
+    export interface IOrderIds extends
+        IAsset,
+        ILimit
+    {}
+
+    export interface IBidOrderIds extends IOrderIds {}
+    export interface IAskOrderIds extends IOrderIds {}
+    export interface IAskOrders extends IOrderIds {}
+    export interface IBidOrders extends IOrderIds {}
 
     // Poll
 
@@ -326,26 +608,49 @@ module Nxt {
 
     }
 
-    export interface IDGSDelist extends
-        IDGSBase
+    export interface IDGSGoods
     {
         goods: any;
     }
 
+    export interface IDGSSellerGoods extends
+        IDGSSeller,
+        ILastIndex
+    {
+        inStockOnly?: boolean;
+    }
+
+    export interface IDGSPendingPurchases extends
+        IDGSSeller,
+        ILastIndex
+    {
+
+    }
+
+    export interface IDGSDelist extends
+        IDGSBase,
+        IDGSGoods
+    {
+    }
+
     export interface IDGSList extends
-        IDGSBase
+        IDGSBase,
+        IPriceNQT
     {
         name: string;
         description: string;
         tags: any;
         quantity: number;
-        priceNQT: number;
+    }
+
+    export interface IDGSPurchase
+    {
+        purchase: any;
     }
 
     export interface IDGSDelivery extends
         IDGSBase
     {
-        purchase: any;
         discountNQT: number;
         goodsToEncrypt: any;
         goodsIsText: boolean;
@@ -354,39 +659,55 @@ module Nxt {
     }
 
     export interface IDGSFeedback extends
-        IDGSBase
+        IDGSBase,
+        IDGSPurchase
     {
-        purchase: any;
     }
 
     export interface IDGSPriceChange extends
-        IDGSBase
+        IDGSBase,
+        IDGSGoods,
+        IPriceNQT
     {
-        goods: any;
-        priceNQT: number;
     }
 
-    export interface IDGSPurchase extends
-        IDGSBase
+    export interface IDGSSetPurchase extends
+        IDGSBase,
+        IDGSGoods,
+        IPriceNQT
     {
-        goods: any;
-        priceNQT: number;
         quantity: number;
         deliveryDeadlineTimestamp: any;
     }
 
-    export interface IDGSQuantityChange extends
-        IDGSBase
+    export interface IDGSPurchases extends
+        IDGSSeller,
+        IDGSBuyer,
+        ILastIndex
     {
-        goods: any;
+        completed?: boolean;
+    }
+
+    export interface IDGSQuantityChange extends
+        IDGSBase,
+        IDGSGoods
+    {
         deltaQuantity: any;
     }
 
     export interface IDGSRefund extends
-        IDGSBase
+        IDGSBase,
+        IDGSPurchase
     {
-        purchase: any;
         refundNQT: number;
+    }
+
+    export interface IMarkHost extends
+        ISecretPhrase
+    {
+        data?: any;
+        host: string;
+        height?: number;
     }
 
     // Specific responses
@@ -572,9 +893,9 @@ module Nxt {
             return this._call('dgsPriceChange', req, callback);
         }
 
-        dgsPurchase(req: IDGSPurchase): Promise<IResponse>;
-        dgsPurchase(req: IDGSPurchase, callback: ICallback): void;
-        dgsPurchase(req: IDGSPurchase, callback?: ICallback): any {
+        dgsPurchase(req: IDGSSetPurchase): Promise<IResponse>;
+        dgsPurchase(req: IDGSSetPurchase, callback: ICallback): void;
+        dgsPurchase(req: IDGSSetPurchase, callback?: ICallback): any {
             return this._call('dgsPurchase', req, callback);
         }
 
@@ -659,15 +980,15 @@ module Nxt {
             return this._call('getAccountPublicKey', req, callback);
         }
 
-        getAccountTransactionIds(req): Promise<IResponse>;
-        getAccountTransactionIds(req, callback: ICallback): void;
-        getAccountTransactionIds(req, callback?: ICallback): any {
+        getAccountTransactionIds(req: IAccountTransactionIds): Promise<IResponse>;
+        getAccountTransactionIds(req: IAccountTransactionIds, callback: ICallback): void;
+        getAccountTransactionIds(req: IAccountTransactionIds, callback?: ICallback): any {
             return this._call('getAccountTransactionIds', req, callback);
         }
 
-        getAccountTransactions(req): Promise<IResponse>;
-        getAccountTransactions(req, callback: ICallback): void;
-        getAccountTransactions(req, callback?: ICallback): any {
+        getAccountTransactions(req: IAccountTransactions): Promise<IResponse>;
+        getAccountTransactions(req: IAccountTransactions, callback: ICallback): void;
+        getAccountTransactions(req: IAccountTransactions, callback?: ICallback): any {
             return this._call('getAccountTransactions', req, callback);
         }
 
@@ -677,28 +998,30 @@ module Nxt {
             return this._call('getAlias', req, callback);
         }
 
-        getAliases(req): Promise<IResponse>;
-        getAliases(req, callback: ICallback): void;
-        getAliases(req, callback?: ICallback): any {
+        getAliases(req: IAliases): Promise<IResponse>;
+        getAliases(req: IAliases, callback: ICallback): void;
+        getAliases(req: IAliases, callback?: ICallback): any {
             return this._call('getAliases', req, callback);
         }
 
         /**
          * Obtain information associated with all the assets in the exchange
          */
+        getAllAssets(): Promise<IResponse>;
         getAllAssets(req: IRequest): Promise<IResponse>;
         getAllAssets(req: IRequest, callback: ICallback): void;
-        getAllAssets(req: IRequest, callback?: ICallback): any {
-            return this._call('getAllAssets', {}, callback);
+        getAllAssets(req?: IRequest, callback?: ICallback): any {
+            return this._call('getAllAssets', req, callback);
         }
 
         /**
          * getAllOpenOrders
          */
+        getAllOpenOrders(): Promise<IResponse>;
         getAllOpenOrders(req: IRequest): Promise<IResponse>;
         getAllOpenOrders(req: IRequest, callback: ICallback): void;
-        getAllOpenOrders(req: IRequest, callback?: ICallback): any {
-            return this._call('getAllOpenOrders', {}, callback);
+        getAllOpenOrders(req?: IRequest, callback?: ICallback): any {
+            return this._call('getAllOpenOrders', req, callback);
         }
 
         getAllTrades(req: ITimestamp): Promise<IResponse>;
@@ -707,45 +1030,46 @@ module Nxt {
             return this._call('getAllTrades', req, callback);
         }
 
-        getAskOrder(req: IOrder): Promise<IResponse>;
-        getAskOrder(req: IOrder, callback: ICallback): void;
-        getAskOrder(req: IOrder, callback?: ICallback): any {
+        getAskOrder(req: IAskOrder): Promise<IResponse>;
+        getAskOrder(req: IAskOrder, callback: ICallback): void;
+        getAskOrder(req: IAskOrder, callback?: ICallback): any {
             return this._call('getAskOrder', req, callback);
         }
 
-        getAskOrderIds(req): Promise<IResponse>;
-        getAskOrderIds(req, callback: ICallback): void;
-        getAskOrderIds(req, callback?: ICallback): any {
+        getAskOrderIds(req: IAskOrderIds): Promise<IResponse>;
+        getAskOrderIds(req: IAskOrderIds, callback: ICallback): void;
+        getAskOrderIds(req: IAskOrderIds, callback?: ICallback): any {
             return this._call('getAskOrderIds', req, callback);
         }
 
-        getAskOrders(req): Promise<IResponse>;
-        getAskOrders(req, callback: ICallback): void;
-        getAskOrders(req, callback?: ICallback): any {
+        getAskOrders(req: IAskOrders): Promise<IResponse>;
+        getAskOrders(req: IAskOrders, callback: ICallback): void;
+        getAskOrders(req: IAskOrders, callback?: ICallback): any {
             return this._call('getAskOrders', req, callback);
         }
 
-        getAsset(req): Promise<IResponse>;
-        getAsset(req, callback: ICallback): void;
-        getAsset(req, callback?: ICallback): any {
+        getAsset(req: IAsset): Promise<IResponse>;
+        getAsset(req: IAsset, callback: ICallback): void;
+        getAsset(req: IAsset, callback?: ICallback): any {
             return this._call('getAsset', req, callback);
         }
 
-        getAssetIds(req): Promise<IResponse>;
-        getAssetIds(req, callback: ICallback): void;
-        getAssetIds(req, callback?: ICallback): any {
+        getAssetIds(): Promise<IResponse>;
+        getAssetIds(req: IRequest): Promise<IResponse>;
+        getAssetIds(req: IRequest, callback: ICallback): void;
+        getAssetIds(req?: IRequest, callback?: ICallback): any {
             return this._call('getAssetIds', req, callback);
         }
 
-        getAssets(req): Promise<IResponse>;
-        getAssets(req, callback: ICallback): void;
-        getAssets(req, callback?: ICallback): any {
+        getAssets(req: IAssets): Promise<IResponse>;
+        getAssets(req: IAssets, callback: ICallback): void;
+        getAssets(req: IAssets, callback?: ICallback): any {
             return this._call('getAssets', req, callback);
         }
 
-        getAssetsByIssuer(req): Promise<IResponse>;
-        getAssetsByIssuer(req, callback: ICallback): void;
-        getAssetsByIssuer(req, callback?: ICallback): any {
+        getAssetsByIssuer(req: IAssetsByIssuer): Promise<IResponse>;
+        getAssetsByIssuer(req: IAssetsByIssuer, callback: ICallback): void;
+        getAssetsByIssuer(req: IAssetsByIssuer, callback?: ICallback): any {
             return this._call('getAssetsByIssuer', req, callback);
         }
 
@@ -755,183 +1079,190 @@ module Nxt {
             return this._call('getBalance', req, callback);
         }
 
-        getBidOrder(req: IOrder): Promise<IResponse>;
-        getBidOrder(req: IOrder, callback: ICallback): void;
-        getBidOrder(req: IOrder, callback?: ICallback): any {
+        getBidOrder(req: IBidOrder): Promise<IResponse>;
+        getBidOrder(req: IBidOrder, callback: ICallback): void;
+        getBidOrder(req: IBidOrder, callback?: ICallback): any {
             return this._call('getBidOrder', req, callback);
         }
 
-        getBidOrderIds(req): Promise<IResponse>;
-        getBidOrderIds(req, callback: ICallback): void;
-        getBidOrderIds(req, callback?: ICallback): any {
+        getBidOrderIds(req: IBidOrderIds): Promise<IResponse>;
+        getBidOrderIds(req: IBidOrderIds, callback: ICallback): void;
+        getBidOrderIds(req: IBidOrderIds, callback?: ICallback): any {
             return this._call('getBidOrderIds', req, callback);
         }
 
-        getBidOrders(req): Promise<IResponse>;
-        getBidOrders(req, callback: ICallback): void;
-        getBidOrders(req, callback?: ICallback): any {
+        getBidOrders(req: IBidOrders): Promise<IResponse>;
+        getBidOrders(req: IBidOrders, callback: ICallback): void;
+        getBidOrders(req: IBidOrders, callback?: ICallback): any {
             return this._call('getBidOrders', req, callback);
         }
 
-        getBlock(req): Promise<IResponse>;
-        getBlock(req, callback: ICallback): void;
-        getBlock(req, callback?: ICallback): any {
+        getBlock(req: IBlock): Promise<IResponse>;
+        getBlock(req: IBlock, callback: ICallback): void;
+        getBlock(req: IBlock, callback?: ICallback): any {
             return this._call('getBlock', req, callback);
         }
 
-        getBlockId(req): Promise<IResponse>;
-        getBlockId(req, callback: ICallback): void;
-        getBlockId(req, callback?: ICallback): any {
+        getBlockId(req: IBlockHeight): Promise<IResponse>;
+        getBlockId(req: IBlockHeight, callback: ICallback): void;
+        getBlockId(req: IBlockHeight, callback?: ICallback): any {
             return this._call('getBlockId', req, callback);
         }
 
-        getBlockchainStatus(req): Promise<IResponse>;
-        getBlockchainStatus(req, callback: ICallback): void;
-        getBlockchainStatus(req, callback?: ICallback): any {
+        getBlockchainStatus(): Promise<IResponse>;
+        getBlockchainStatus(req: IRequest): Promise<IResponse>;
+        getBlockchainStatus(req: IRequest, callback: ICallback): void;
+        getBlockchainStatus(req?: IRequest, callback?: ICallback): any {
             return this._call('getBlockchainStatus', req, callback);
         }
 
-        getConstants(req): Promise<IResponse>;
-        getConstants(req, callback: ICallback): void;
-        getConstants(req, callback?: ICallback): any {
+        getConstants(): Promise<IResponse>;
+        getConstants(req: IRequest): Promise<IResponse>;
+        getConstants(req: IRequest, callback: ICallback): void;
+        getConstants(req?: IRequest, callback?: ICallback): any {
             return this._call('getConstants', req, callback);
         }
 
-        getDGSGood(req): Promise<IResponse>;
-        getDGSGood(req, callback: ICallback): void;
-        getDGSGood(req, callback?: ICallback): any {
+        getDGSGood(req: IDGSGoods): Promise<IResponse>;
+        getDGSGood(req: IDGSGoods, callback: ICallback): void;
+        getDGSGood(req: IDGSGoods, callback?: ICallback): any {
             return this._call('getDGSGood', req, callback);
         }
 
-        getDGSGoods(req): Promise<IResponse>;
-        getDGSGoods(req, callback: ICallback): void;
-        getDGSGoods(req, callback?: ICallback): any {
+        getDGSGoods(req: IDGSSellerGoods): Promise<IResponse>;
+        getDGSGoods(req: IDGSSellerGoods, callback: ICallback): void;
+        getDGSGoods(req: IDGSSellerGoods, callback?: ICallback): any {
             return this._call('getDGSGoods', req, callback);
         }
 
-        getDGSPendingPurchases(req): Promise<IResponse>;
-        getDGSPendingPurchases(req, callback: ICallback): void;
-        getDGSPendingPurchases(req, callback?: ICallback): any {
+        getDGSPendingPurchases(req: IDGSPendingPurchases): Promise<IResponse>;
+        getDGSPendingPurchases(req: IDGSPendingPurchases, callback: ICallback): void;
+        getDGSPendingPurchases(req: IDGSPendingPurchases, callback?: ICallback): any {
             return this._call('getDGSPendingPurchases', req, callback);
         }
 
-        getDGSPurchase(req): Promise<IResponse>;
-        getDGSPurchase(req, callback: ICallback): void;
-        getDGSPurchase(req, callback?: ICallback): any {
+        getDGSPurchase(req: IDGSPurchase): Promise<IResponse>;
+        getDGSPurchase(req: IDGSPurchase, callback: ICallback): void;
+        getDGSPurchase(req: IDGSPurchase, callback?: ICallback): any {
             return this._call('getDGSPurchase', req, callback);
         }
 
-        getDGSPurchases(req): Promise<IResponse>;
-        getDGSPurchases(req, callback: ICallback): void;
-        getDGSPurchases(req, callback?: ICallback): any {
+        getDGSPurchases(req: IDGSPurchases): Promise<IResponse>;
+        getDGSPurchases(req: IDGSPurchases, callback: ICallback): void;
+        getDGSPurchases(req: IDGSPurchases, callback?: ICallback): any {
             return this._call('getDGSPurchases', req, callback);
         }
 
-        getForging(req): Promise<IResponse>;
-        getForging(req, callback: ICallback): void;
-        getForging(req, callback?: ICallback): any {
+        getForging(req: IForging): Promise<IResponse>;
+        getForging(req: IForging, callback: ICallback): void;
+        getForging(req: IForging, callback?: ICallback): any {
             return this._call('getForging', req, callback);
         }
 
-        getGuaranteedBalance(req): Promise<IResponse>;
-        getGuaranteedBalance(req, callback: ICallback): void;
-        getGuaranteedBalance(req, callback?: ICallback): any {
+        getGuaranteedBalance(req: IAccountGuaranteed): Promise<IResponse>;
+        getGuaranteedBalance(req: IAccountGuaranteed, callback: ICallback): void;
+        getGuaranteedBalance(req: IAccountGuaranteed, callback?: ICallback): any {
             return this._call('getGuaranteedBalance', req, callback);
         }
 
-        getMyInfo(req): Promise<IResponse>;
-        getMyInfo(req, callback: ICallback): void;
-        getMyInfo(req, callback?: ICallback): any {
+        getMyInfo(): Promise<IResponse>;
+        getMyInfo(req: IRequest): Promise<IResponse>;
+        getMyInfo(req: IRequest, callback: ICallback): void;
+        getMyInfo(req?: IRequest, callback?: ICallback): any {
             return this._call('getMyInfo', req, callback);
         }
 
-        getNextBlockGenerators(req): Promise<IResponse>;
-        getNextBlockGenerators(req, callback: ICallback): void;
-        getNextBlockGenerators(req, callback?: ICallback): any {
+        getNextBlockGenerators(): Promise<IResponse>;
+        getNextBlockGenerators(req: IRequest): Promise<IResponse>;
+        getNextBlockGenerators(req: IRequest, callback: ICallback): void;
+        getNextBlockGenerators(req?: IRequest, callback?: ICallback): any {
             return this._call('getNextBlockGenerators', req, callback);
         }
 
-        getPeer(req): Promise<IResponse>;
-        getPeer(req, callback: ICallback): void;
-        getPeer(req, callback?: ICallback): any {
+        getPeer(req: IPeer): Promise<IResponse>;
+        getPeer(req: IPeer, callback: ICallback): void;
+        getPeer(req: IPeer, callback?: ICallback): any {
             return this._call('getPeer', req, callback);
         }
 
-        getPeers(req): Promise<IResponse>;
-        getPeers(req, callback: ICallback): void;
-        getPeers(req, callback?: ICallback): any {
+        getPeers(req: IPeers): Promise<IResponse>;
+        getPeers(req: IPeers, callback: ICallback): void;
+        getPeers(req: IPeers, callback?: ICallback): any {
             return this._call('getPeers', req, callback);
         }
 
-        getPoll(req): Promise<IResponse>;
-        getPoll(req, callback: ICallback): void;
-        getPoll(req, callback?: ICallback): any {
+        getPoll(req: IPoll): Promise<IResponse>;
+        getPoll(req: IPoll, callback: ICallback): void;
+        getPoll(req: IPoll, callback?: ICallback): any {
             return this._call('getPoll', req, callback);
         }
 
-        getPollIds(req): Promise<IResponse>;
-        getPollIds(req, callback: ICallback): void;
-        getPollIds(req, callback?: ICallback): any {
+        getPollIds(): Promise<IResponse>;
+        getPollIds(req: IRequest): Promise<IResponse>;
+        getPollIds(req: IRequest, callback: ICallback): void;
+        getPollIds(req?: IRequest, callback?: ICallback): any {
             return this._call('getPollIds', req, callback);
         }
 
-        getState(req): Promise<IResponse>;
-        getState(req, callback: ICallback): void;
-        getState(req, callback?: ICallback): any {
+        getState(): Promise<IResponse>;
+        getState(req: IRequest): Promise<IResponse>;
+        getState(req: IRequest, callback: ICallback): void;
+        getState(req?: IRequest, callback?: ICallback): any {
             return this._call('getState', req, callback);
         }
 
-        getTime(req): Promise<IResponse>;
-        getTime(req, callback: ICallback): void;
-        getTime(req, callback?: ICallback): any {
+        getTime(): Promise<IResponse>;
+        getTime(req: IRequest): Promise<IResponse>;
+        getTime(req: IRequest, callback: ICallback): void;
+        getTime(req?: IRequest, callback?: ICallback): any {
             return this._call('getTime', req, callback);
         }
 
-        getTrades(req): Promise<IResponse>;
-        getTrades(req, callback: ICallback): void;
-        getTrades(req, callback?: ICallback): any {
+        getTrades(req: ITrades): Promise<IResponse>;
+        getTrades(req: ITrades, callback: ICallback): void;
+        getTrades(req: ITrades, callback?: ICallback): any {
             return this._call('getTrades', req, callback);
         }
 
-        getTransaction(req): Promise<IResponse>;
-        getTransaction(req, callback: ICallback): void;
-        getTransaction(req, callback?: ICallback): any {
+        getTransaction(req: ITransactionInfo): Promise<IResponse>;
+        getTransaction(req: ITransactionInfo, callback: ICallback): void;
+        getTransaction(req: ITransactionInfo, callback?: ICallback): any {
             return this._call('getTransaction', req, callback);
         }
 
-        getTransactionBytes(req): Promise<IResponse>;
-        getTransactionBytes(req, callback: ICallback): void;
-        getTransactionBytes(req, callback?: ICallback): any {
+        getTransactionBytes(req: ITransaction): Promise<IResponse>;
+        getTransactionBytes(req: ITransaction, callback: ICallback): void;
+        getTransactionBytes(req: ITransaction, callback?: ICallback): any {
             return this._call('getTransactionBytes', req, callback);
         }
 
-        getUnconfirmedTransactionIds(req): Promise<IResponse>;
-        getUnconfirmedTransactionIds(req, callback: ICallback): void;
-        getUnconfirmedTransactionIds(req, callback?: ICallback): any {
+        getUnconfirmedTransactionIds(req: IAccount): Promise<IResponse>;
+        getUnconfirmedTransactionIds(req: IAccount, callback: ICallback): void;
+        getUnconfirmedTransactionIds(req: IAccount, callback?: ICallback): any {
             return this._call('getUnconfirmedTransactionIds', req, callback);
         }
 
-        getUnconfirmedTransactions(req): Promise<IResponse>;
-        getUnconfirmedTransactions(req, callback: ICallback): void;
-        getUnconfirmedTransactions(req, callback?: ICallback): any {
+        getUnconfirmedTransactions(req: IAccount): Promise<IResponse>;
+        getUnconfirmedTransactions(req: IAccount, callback: ICallback): void;
+        getUnconfirmedTransactions(req: IAccount, callback?: ICallback): any {
             return this._call('getUnconfirmedTransactions', req, callback);
         }
 
-        issueAsset(req): Promise<IResponse>;
-        issueAsset(req, callback: ICallback): void;
-        issueAsset(req, callback?: ICallback): any {
+        issueAsset(req: IIssueAsset): Promise<IResponse>;
+        issueAsset(req: IIssueAsset, callback: ICallback): void;
+        issueAsset(req: IIssueAsset, callback?: ICallback): any {
             return this._call('issueAsset', req, callback);
         }
 
-        leaseBalance(req): Promise<IResponse>;
-        leaseBalance(req, callback: ICallback): void;
-        leaseBalance(req, callback?: ICallback): any {
+        leaseBalance(req: ILeaseBalance): Promise<IResponse>;
+        leaseBalance(req: ILeaseBalance, callback: ICallback): void;
+        leaseBalance(req: ILeaseBalance, callback?: ICallback): any {
             return this._call('leaseBalance', req, callback);
         }
 
-        markHost(req): Promise<IResponse>;
-        markHost(req, callback: ICallback): void;
-        markHost(req, callback?: ICallback): any {
+        markHost(req: IMarkHost): Promise<IResponse>;
+        markHost(req: IMarkHost, callback: ICallback): void;
+        markHost(req: IMarkHost, callback?: ICallback): any {
             return this._call('markHost', req, callback);
         }
 
@@ -941,81 +1272,81 @@ module Nxt {
             return this._call('parseTransaction', req, callback);
         }
 
-        placeAskOrder(req): Promise<IResponse>;
-        placeAskOrder(req, callback: ICallback): void;
-        placeAskOrder(req, callback?: ICallback): any {
+        placeAskOrder(req: IPlaceAskOrder): Promise<IResponse>;
+        placeAskOrder(req: IPlaceAskOrder, callback: ICallback): void;
+        placeAskOrder(req: IPlaceAskOrder, callback?: ICallback): any {
             return this._call('placeAskOrder', req, callback);
         }
 
-        placeBidOrder(req): Promise<IResponse>;
-        placeBidOrder(req, callback: ICallback): void;
-        placeBidOrder(req, callback?: ICallback): any {
+        placeBidOrder(req: IPlaceBidOrder): Promise<IResponse>;
+        placeBidOrder(req: IPlaceBidOrder, callback: ICallback): void;
+        placeBidOrder(req: IPlaceBidOrder, callback?: ICallback): any {
             return this._call('placeBidOrder', req, callback);
         }
 
-        readMessage(req): Promise<IResponse>;
-        readMessage(req, callback: ICallback): void;
-        readMessage(req, callback?: ICallback): any {
+        readMessage(req: IReadMessage): Promise<IResponse>;
+        readMessage(req: IReadMessage, callback: ICallback): void;
+        readMessage(req: IReadMessage, callback?: ICallback): any {
             return this._call('readMessage', req, callback);
         }
 
-        rsConvert(req): Promise<IResponse>;
-        rsConvert(req, callback: ICallback): void;
-        rsConvert(req, callback?: ICallback): any {
+        rsConvert(req: IAccount): Promise<IResponse>;
+        rsConvert(req: IAccount, callback: ICallback): void;
+        rsConvert(req: IAccount, callback?: ICallback): any {
             return this._call('rsConvert', req, callback);
         }
 
-        sellAlias(req): Promise<IResponse>;
-        sellAlias(req, callback: ICallback): void;
-        sellAlias(req, callback?: ICallback): any {
+        sellAlias(req: ISellAlias): Promise<IResponse>;
+        sellAlias(req: ISellAlias, callback: ICallback): void;
+        sellAlias(req: ISellAlias, callback?: ICallback): any {
             return this._call('sellAlias', req, callback);
         }
 
-        sendMessage(req): Promise<IResponse>;
-        sendMessage(req, callback: ICallback): void;
-        sendMessage(req, callback?: ICallback): any {
+        sendMessage(req: ISendMessage): Promise<IResponse>;
+        sendMessage(req: ISendMessage, callback: ICallback): void;
+        sendMessage(req: ISendMessage, callback?: ICallback): any {
             return this._call('sendMessage', req, callback);
         }
 
-        sendMoney(req): Promise<IResponse>;
-        sendMoney(req, callback: ICallback): void;
-        sendMoney(req, callback?: ICallback): any {
+        sendMoney(req: ISendMoney): Promise<IResponse>;
+        sendMoney(req: ISendMoney, callback: ICallback): void;
+        sendMoney(req: ISendMoney, callback?: ICallback): any {
             return this._call('sendMoney', req, callback);
         }
 
-        setAccountInfo(req): Promise<IResponse>;
-        setAccountInfo(req, callback: ICallback): void;
-        setAccountInfo(req, callback?: ICallback): any {
+        setAccountInfo(req: IAccountInfo): Promise<IResponse>;
+        setAccountInfo(req: IAccountInfo, callback: ICallback): void;
+        setAccountInfo(req: IAccountInfo, callback?: ICallback): any {
             return this._call('setAccountInfo', req, callback);
         }
 
-        setAlias(req): Promise<IResponse>;
-        setAlias(req, callback: ICallback): void;
-        setAlias(req, callback?: ICallback): any {
+        setAlias(req: ISetAlias): Promise<IResponse>;
+        setAlias(req: ISetAlias, callback: ICallback): void;
+        setAlias(req: ISetAlias, callback?: ICallback): any {
             return this._call('setAlias', req, callback);
         }
 
-        signTransaction(req): Promise<IResponse>;
-        signTransaction(req, callback: ICallback): void;
-        signTransaction(req, callback?: ICallback): any {
+        signTransaction(req: ISignTransaction): Promise<IResponse>;
+        signTransaction(req: ISignTransaction, callback: ICallback): void;
+        signTransaction(req: ISignTransaction, callback?: ICallback): any {
             return this._call('signTransaction', req, callback);
         }
 
-        startForging(req): Promise<IResponse>;
-        startForging(req, callback: ICallback): void;
-        startForging(req, callback?: ICallback): any {
+        startForging(req: ISecretPhrase): Promise<IResponse>;
+        startForging(req: ISecretPhrase, callback: ICallback): void;
+        startForging(req: ISecretPhrase, callback?: ICallback): any {
             return this._call('startForging', req, callback);
         }
 
-        stopForging(req): Promise<IResponse>;
-        stopForging(req, callback: ICallback): void;
-        stopForging(req, callback?: ICallback): any {
+        stopForging(req: ISecretPhrase): Promise<IResponse>;
+        stopForging(req: ISecretPhrase, callback: ICallback): void;
+        stopForging(req: ISecretPhrase, callback?: ICallback): any {
             return this._call('stopForging', req, callback);
         }
 
-        transferAsset(req): Promise<IResponse>;
-        transferAsset(req, callback: ICallback): void;
-        transferAsset(req, callback?: ICallback): any {
+        transferAsset(req: ITransferAsset): Promise<IResponse>;
+        transferAsset(req: ITransferAsset, callback: ICallback): void;
+        transferAsset(req: ITransferAsset, callback?: ICallback): any {
             return this._call('transferAsset', req, callback);
         }
 

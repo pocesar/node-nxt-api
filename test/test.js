@@ -22,8 +22,10 @@ describe('NXT', function(){
             var
                 i,
                 promises = [],
+                self = this,
                 names = Object.keys(NXT.API.prototype),
-                skip = ['_call'].concat(Object.keys(this.instance));
+                skip = ['_call','_clean'].concat(Object.keys(this.instance));
+
 
             sinon.stub(this.instance.request, 'post', function(args, callback){
                 expect(args.url).to.equal('http://127.0.0.1:9999');
@@ -36,17 +38,39 @@ describe('NXT', function(){
                 if (skip.indexOf(names[i]) !== -1) { continue; }
 
                 promises.push(this.instance[names[i]]({expected: names[i]}).then((function(name){
-                    return function(err, dummy, q){
-                        console.log(name);
+                    return function(q){
+                        //console.log(name, q);
                         expect(q).to.have.deep.property('ok', name);
                     };
                 })(names[i])));
             }
 
-            return Promise.all(promises);
+            return Promise.all(promises).then(function(){
+                self.instance.request.post.restore();
+            });
         });
 
         it('should respond with errorCode', function(){
+
+        });
+
+        it('should have dual API', function(done){
+            var self = this;
+
+            sinon.stub(this.instance.request, 'post', function(args, callback){
+                callback(null, true, {'ok': true});
+            });
+
+            this.instance.getBlockchainStatus({}, function(err, q){
+                expect(err).to.not.be.ok;
+                expect(q).to.deep.equal({ok: true});
+
+                self.instance.getBlockchainStatus().then(function(q){
+                    expect(q).to.deep.equal({ok: true});
+                    self.instance.request.post.restore();
+                    done();
+                });
+            });
 
         });
 
