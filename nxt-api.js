@@ -21,7 +21,8 @@ var Nxt;
         4: 'Incorrect parameter',
         5: 'Unknown object (block, transaction, etc.)',
         6: 'Not enough funds',
-        7: 'Not allowed'
+        7: 'Not allowed',
+        255: 'Internal error'
     };
 
     
@@ -43,6 +44,7 @@ var Nxt;
     // Specific responses
     var extend = function (dest, src) {
         for (var i in src) {
+            /*istanbul ignore else*/
             if (Object.prototype.hasOwnProperty.call(src, i)) {
                 dest[i] = src[i];
             }
@@ -55,12 +57,24 @@ var Nxt;
         function API(endpoint) {
             this.config = {};
             this.request = request;
+            if (!endpoint) {
+                throw new Error('Endpoint must be provided');
+            }
+
+            if (endpoint.indexOf('http') !== 0) {
+                throw new Error('Endpoint must be set with protocol, either https:// or http://');
+            }
+
+            if (endpoint.indexOf('/nxt') === -1) {
+                endpoint = endpoint + '/nxt';
+            }
+
             this.config.url = endpoint;
             this.config.json = true;
         }
         API.prototype._clean = function (obj) {
             Object.getOwnPropertyNames(obj).forEach(function (name) {
-                if (typeof obj[name] === 'undefined') {
+                if (typeof obj[name] === 'undefined' || obj[name] === null) {
                     delete obj[name];
                 }
             });
@@ -76,8 +90,8 @@ var Nxt;
 
             extend(req, this.config);
 
-            if (qs) {
-                qs = extend(qs, {
+            if (typeof qs === 'object') {
+                extend(qs, {
                     'requestType': name
                 });
             } else {
@@ -93,13 +107,16 @@ var Nxt;
             return new Promise(function (resolve, reject) {
                 _this.request.post(req, function (err, response, body) {
                     if (err) {
-                        reject(err);
+                        reject({ errorCode: 255, errorDescription: String(err['message'] ? err['message'] : err) });
                     } else {
-                        if (body.errorCode) {
-                            var error = body;
-                            reject(error);
+                        if (typeof body === 'object') {
+                            if (body.errorCode) {
+                                reject(body);
+                            } else {
+                                resolve(body);
+                            }
                         } else {
-                            resolve(body);
+                            reject({ errorCode: 1, errorDescription: Nxt.ErrorCodes[1] });
                         }
                     }
                 });

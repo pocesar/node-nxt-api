@@ -20,7 +20,8 @@ module Nxt {
         4: 'Incorrect parameter',
         5: 'Unknown object (block, transaction, etc.)',
         6: 'Not enough funds',
-        7: 'Not allowed'
+        7: 'Not allowed',
+        255: 'Internal error'
     };
 
     // Composable interfaces
@@ -714,6 +715,7 @@ module Nxt {
 
     var extend = (dest: any, src: any) => {
         for (var i in src) {
+            /*istanbul ignore else*/
             if (Object.prototype.hasOwnProperty.call(src, i)) {
                 dest[i] = src[i];
             }
@@ -728,7 +730,7 @@ module Nxt {
 
         private _clean(obj: any) {
             Object.getOwnPropertyNames(obj).forEach((name: string) => {
-                if (typeof obj[name] === 'undefined') {
+                if (typeof obj[name] === 'undefined' || obj[name] === null) {
                     delete obj[name];
                 }
             });
@@ -745,8 +747,8 @@ module Nxt {
 
             extend(req, this.config);
 
-            if (qs) {
-                qs = extend(qs, {
+            if (typeof qs === 'object') {
+                extend(qs, {
                     'requestType': name
                 });
             } else {
@@ -759,16 +761,19 @@ module Nxt {
 
             this._clean(qs);
 
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve: (value: any) => void, reject: (reason: IError) => void) => {
                 this.request.post(req, (err: any, response: any, body: any) => {
                     if (err) {
-                        reject(err);
+                        reject({errorCode: 255, errorDescription: String(err['message'] ? err['message'] : err)});
                     } else {
-                        if (body.errorCode) {
-                            var error: IError = body;
-                            reject(error);
-                        } else {
-                            resolve(body);
+                        if (typeof body === 'object') {
+                            if (body.errorCode) {
+                                reject(body);
+                            } else {
+                                resolve(body);
+                            }
+                        }  else {
+                            reject({errorCode: 1, errorDescription: ErrorCodes[1]});
                         }
                     }
                 });
@@ -1351,6 +1356,18 @@ module Nxt {
         }
 
         constructor(endpoint: string) {
+            if (!endpoint) {
+                throw new Error('Endpoint must be provided');
+            }
+
+            if (endpoint.indexOf('http') !== 0) {
+                throw new Error('Endpoint must be set with protocol, either https:// or http://');
+            }
+
+            if (endpoint.indexOf('/nxt') === -1) {
+                endpoint = endpoint + '/nxt';
+            }
+
             this.config.url = endpoint;
             this.config.json = true;
         }

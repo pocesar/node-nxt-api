@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style type="text/css">
+            .error { color: red; }
+            .success { color: green; }
+        </style>
+    </head>
+    <body>
+        <div id="result"></div>
+        <script type="text/javascript" src="../dist/nxt-api.js"></script>
+        <script type="text/javascript">
+            (function(){
+                var
+                    result = document.getElementById('result'),
+                    instance = new NXT.API('http://127.0.0.1:6876');
+
+                instance.getNextBlockGenerators().then(function(answer){
+                    result.innerHTML = '<h3 class="success">Success:</h3><pre>' + JSON.stringify(answer) + '</pre>';
+                }, function(err){
+                    result.innerHTML = '<h3 class="error">Error:</h3><pre>' + JSON.stringify(err) + '</pre>';
+                });
+            })();
+        </script>
+    </body>
+</html>

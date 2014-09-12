@@ -1,0 +1,36 @@
+{
+  "name": "nxt-api",
+  "version": "1.2.8",
+  "homepage": "https://github.com/pocesar/node-nxt-api",
+  "authors": [
+    "Paulo Cesar <email@pocesar.e4ward.com>"
+  ],
+  "description": "NXT crypto API wrapper for usage on the browser",
+  "main": "dist/nxt-api.js",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "nxt",
+    "json",
+    "crypto",
+    "nxtcrypto",
+    "api",
+    "request"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "example",
+    "typings",
+    "*.ts",
+    "./nxt-*",
+    "test",
+    "tsd.json",
+    "tslint.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

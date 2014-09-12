@@ -4,3 +4,5 @@
 /// <reference path="form-data/form-data.d.ts" />
 /// <reference path="body-parser/body-parser.d.ts" />
 /// <reference path="bluebird/bluebird.d.ts" />
+
+/// <reference path="../nxt-api.d.ts" />
