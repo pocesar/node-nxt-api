@@ -1,11 +1,12 @@
 {
   "name": "nxt-api",
-  "version": "1.2.8",
+  "version": "1.2.8-1",
   "license": "MIT",
   "author": {
     "name": "Paulo Cesar",
     "url" : "https://github.com"
   },
+  "description": "API request wrapper for NXT crypto for Node.js and the browser. It just has all the currently public API methods for NXT along side with a dual API Promise/Callback based interface. Plus it's created using Typescript, which should ensure the proper parameters for each API call.",
   "repository": {
     "type":"git",
     "url":"git://github.com/pocesar/node-nxt-api.git"
@@ -25,7 +26,7 @@
     "browser": "browserify nxt-api.js --noparse request --noparse bluebird --ignore request --standalone NXT > dist/nxt-api.js",
     "coverage": "npm run compile && node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
     "coveralls": "npm run compile && node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- --report lcovonly && cat ./coverage/lcov.info | node ./node_modules/coveralls/bin/coveralls.js",
-    "publish": "npm run test && npm run browser && npm publish",
+    "npm": "npm run test && npm run browser && npm publish",
     "example": "npm run compile && node example"
   },
   "dependencies": {
