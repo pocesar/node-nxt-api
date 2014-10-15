@@ -54,7 +54,7 @@ declare module Nxt {
     interface IAssets {
         assets: number;
     }
-    interface IAssetsByIssuer extends IAccount {
+    interface IAssetsByIssuer extends IAccount, ILastIndex {
     }
     interface IPlaceOrder extends IAsset, ISecretPhrase, IPublicKey, IFeeNQT, IQuantityQNT, IDeadline, IReferencedTransaction, IBroadcast, IMessageEncryptToSelf, IEncryptedMessageToSelf, IRecipientPublicKey, IPriceNQT {
     }
@@ -124,6 +124,10 @@ declare module Nxt {
     }
     interface IRequest {
     }
+    interface IAllAssets extends ILastIndex {
+    }
+    interface IAllTrades extends ITimestamp, ILastIndex {
+    }
     interface ICallback {
         (err: any, result: any): void;
     }
@@ -185,7 +189,7 @@ declare module Nxt {
     interface IPoll {
         poll: number;
     }
-    interface IAccountBlockIds extends IAccount, ITimestamp {
+    interface IAccountBlockIds extends IAccount, ITimestamp, ILastIndex {
     }
     interface IForging extends ISecretPhrase {
     }
@@ -195,9 +199,9 @@ declare module Nxt {
     }
     interface IAccountGuaranteed extends IAccount, IConfirmations {
     }
-    interface IAliases extends IAccount, ITimestamp {
+    interface IAliases extends IAccount, ITimestamp, ILastIndex {
     }
-    interface IAccountCurrentOrderIds extends IAsset, IAccount {
+    interface IAccountCurrentOrderIds extends IAsset, IAccount, ILastIndex {
     }
     interface IAccountCurrentBuyOrderIds extends IAccountCurrentOrderIds {
     }
@@ -219,6 +223,8 @@ declare module Nxt {
         aliasName: string;
         aliasURI: string;
     }
+    interface IAssetIds extends ILastIndex {
+    }
     interface ISellAlias extends IAlias, IRecipient, IPriceNQT, ISecretPhrase, IPublicKey, IFeeNQT, IDeadline, IReferencedTransaction, IBroadcast, IMessageEncryptToSelf, IEncryptedMessageToSelf, IRecipientPublicKey {
     }
     interface ICalculateHash extends IUnsignedTransactionBytes, ISignatureHash {
@@ -236,7 +242,7 @@ declare module Nxt {
     }
     interface IBidOrder extends IOrder {
     }
-    interface IOrderIds extends IAsset, ILimit {
+    interface IOrderIds extends IAsset, ILastIndex {
     }
     interface IBidOrderIds extends IOrderIds {
     }
@@ -436,16 +442,16 @@ declare module Nxt {
         * Obtain information associated with all the assets in the exchange
         */
         public getAllAssets(): Promise<IResponse>;
-        public getAllAssets(req: IRequest): Promise<IResponse>;
-        public getAllAssets(req: IRequest, callback: ICallback): void;
+        public getAllAssets(req: IAllAssets): Promise<IResponse>;
+        public getAllAssets(req: IAllAssets, callback: ICallback): void;
         /**
         * getAllOpenOrders
         */
         public getAllOpenOrders(): Promise<IResponse>;
         public getAllOpenOrders(req: IRequest): Promise<IResponse>;
         public getAllOpenOrders(req: IRequest, callback: ICallback): void;
-        public getAllTrades(req: ITimestamp): Promise<IResponse>;
-        public getAllTrades(req: ITimestamp, callback: ICallback): void;
+        public getAllTrades(req: IAllTrades): Promise<IResponse>;
+        public getAllTrades(req: IAllTrades, callback: ICallback): void;
         public getAskOrder(req: IAskOrder): Promise<IResponse>;
         public getAskOrder(req: IAskOrder, callback: ICallback): void;
         public getAskOrderIds(req: IAskOrderIds): Promise<IResponse>;
@@ -455,8 +461,8 @@ declare module Nxt {
         public getAsset(req: IAsset): Promise<IResponse>;
         public getAsset(req: IAsset, callback: ICallback): void;
         public getAssetIds(): Promise<IResponse>;
-        public getAssetIds(req: IRequest): Promise<IResponse>;
-        public getAssetIds(req: IRequest, callback: ICallback): void;
+        public getAssetIds(req: IAssetIds): Promise<IResponse>;
+        public getAssetIds(req: IAssetIds, callback: ICallback): void;
         public getAssets(req: IAssets): Promise<IResponse>;
         public getAssets(req: IAssets, callback: ICallback): void;
         public getAssetsByIssuer(req: IAssetsByIssuer): Promise<IResponse>;

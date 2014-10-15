@@ -30,7 +30,6 @@ module Nxt {
         secretPhrase: string;
     }
 
-
     export interface IPeer {
         peer: string;
     }
@@ -151,7 +150,7 @@ module Nxt {
         assets: number;
     }
 
-    export interface IAssetsByIssuer extends IAccount
+    export interface IAssetsByIssuer extends IAccount, ILastIndex
     {}
 
     export interface IPlaceOrder extends
@@ -269,6 +268,18 @@ module Nxt {
 
     }
 
+    export interface IAllAssets extends ILastIndex
+    {
+
+    }
+
+    export interface IAllTrades extends
+        ITimestamp,
+        ILastIndex
+    {
+
+    }
+
     export interface ICallback {
         (err: any, result: any): void;
     }
@@ -360,7 +371,8 @@ module Nxt {
 
     export interface IAccountBlockIds extends
         IAccount,
-        ITimestamp
+        ITimestamp,
+        ILastIndex
     {
 
     }
@@ -395,12 +407,14 @@ module Nxt {
 
     export interface IAliases extends
         IAccount,
-        ITimestamp
+        ITimestamp,
+        ILastIndex
     {}
 
     export interface IAccountCurrentOrderIds extends
         IAsset,
-        IAccount
+        IAccount,
+        ILastIndex
     {
 
     }
@@ -473,6 +487,10 @@ module Nxt {
         aliasURI: string;
     }
 
+    export interface IAssetIds extends ILastIndex {
+
+    }
+
     export interface ISellAlias extends
         IAlias,
         IRecipient,
@@ -527,7 +545,7 @@ module Nxt {
 
     export interface IOrderIds extends
         IAsset,
-        ILimit
+        ILastIndex
     {}
 
     export interface IBidOrderIds extends IOrderIds {}
@@ -1013,9 +1031,9 @@ module Nxt {
          * Obtain information associated with all the assets in the exchange
          */
         getAllAssets(): Promise<IResponse>;
-        getAllAssets(req: IRequest): Promise<IResponse>;
-        getAllAssets(req: IRequest, callback: ICallback): void;
-        getAllAssets(req?: IRequest, callback?: ICallback): any {
+        getAllAssets(req: IAllAssets): Promise<IResponse>;
+        getAllAssets(req: IAllAssets, callback: ICallback): void;
+        getAllAssets(req?: IAllAssets, callback?: ICallback): any {
             return this._call('getAllAssets', req, callback);
         }
 
@@ -1029,9 +1047,9 @@ module Nxt {
             return this._call('getAllOpenOrders', req, callback);
         }
 
-        getAllTrades(req: ITimestamp): Promise<IResponse>;
-        getAllTrades(req: ITimestamp, callback: ICallback): void;
-        getAllTrades(req: ITimestamp, callback?: ICallback): any {
+        getAllTrades(req: IAllTrades): Promise<IResponse>;
+        getAllTrades(req: IAllTrades, callback: ICallback): void;
+        getAllTrades(req: IAllTrades, callback?: ICallback): any {
             return this._call('getAllTrades', req, callback);
         }
 
@@ -1060,9 +1078,9 @@ module Nxt {
         }
 
         getAssetIds(): Promise<IResponse>;
-        getAssetIds(req: IRequest): Promise<IResponse>;
-        getAssetIds(req: IRequest, callback: ICallback): void;
-        getAssetIds(req?: IRequest, callback?: ICallback): any {
+        getAssetIds(req: IAssetIds): Promise<IResponse>;
+        getAssetIds(req: IAssetIds, callback: ICallback): void;
+        getAssetIds(req?: IAssetIds, callback?: ICallback): any {
             return this._call('getAssetIds', req, callback);
         }
 
