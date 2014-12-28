@@ -6056,6 +6056,10 @@ var Nxt;
         API.prototype.getBlock = function (req, callback) {
             return this._call('getBlock', req, callback);
         };
+        
+        API.prototype.getBlocks = function (req, callback) {
+            return this._call('getBlocks', req, callback);
+        };
 
         API.prototype.getBlockId = function (req, callback) {
             return this._call('getBlockId', req, callback);
