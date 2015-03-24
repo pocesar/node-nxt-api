@@ -14,6 +14,7 @@ Plus it's created using Typescript, which should ensure the proper parameters fo
 For node.js
 
 ```
+npm -g install typescript
 npm install nxt-api
 ```
 
